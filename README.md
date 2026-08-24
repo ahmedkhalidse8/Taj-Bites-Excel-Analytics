@@ -60,8 +60,9 @@ The final solution allows management to understand:
 * Business performance patterns
 * Areas requiring further investigation
 
----
+## Executive Dashboard
 
+![Taj Bites Executive Dashboard](outputs/dashboard.png)
 # 2. Project Background
 
 The restaurant originally operated using manually maintained daily Excel workbooks.
@@ -140,33 +141,7 @@ The project was designed to demonstrate practical Excel analytics skills while s
 
 ## Source Workbooks
 
-The source directory contains **387 `.xlsx` workbooks**.
-
-The workbooks are organized by month:
-
-```text
-raw-data/
-
-├── Dec 2022/
-├── Jan 2023/
-├── Feb 2023/
-├── ...
-├── Dec 2023/
-└── ...
-```
-
-Each workbook represents an individual daily operational record.
-
-Example:
-
-```text
-raw-data/
-└── Apr 2023/
-    ├── 01 Apr 2023.xlsx
-    ├── 02 Apr 2023.xlsx
-    ├── 03 Apr 2023.xlsx
-    └── ...
-```
+The original source dataset consisted of 387 Excel workbooks, representing daily operational records. Due to the private nature of the source business data, the raw workbooks are not included in this public repository. The final analytical dataset represents 381 operating days covering December 2022 – December 2023.
 
 ## Analytical Coverage
 
@@ -262,8 +237,7 @@ The Power Query process performs several important tasks.
 
 ### Folder-based ingestion
 
-Power Query reads the source files directly from the `raw-data` directory.
-
+Power Query was configured to read the original daily workbooks from a local source directory. The raw source files are not included in this public repository because they contain private business data.
 ### Workbook extraction
 
 Each workbook is opened programmatically through Power Query and the required `Sheet1` data is extracted.
@@ -313,12 +287,7 @@ The main advantage of the Power Query approach is that the historical dataset ca
 
 Screenshots documenting the Power Query implementation are included in:
 
-```text
-outputs/
-
-├── power_query.png
-└── Power Query Editor with Applied Steps.png
-```
+![Power Query Workflow](outputs/power_query.png)
 
 These screenshots provide visual evidence of:
 
@@ -327,7 +296,12 @@ These screenshots provide visual evidence of:
 * Transformation steps
 * Applied steps
 * Historical data extraction
+### Power Query Workflow
 
+
+### Power Query Editor — Applied Steps
+
+![Power Query Editor with Applied Steps](outputs/Power%20Query%20Editor%20with%20Applied%20Steps.png)
 ---
 
 # 9. Excel Workbook Architecture
@@ -419,11 +393,7 @@ It demonstrates an analytical approach to:
 
 A visual summary of the data-quality analysis is included in:
 
-```text
-outputs/
-└── data_quality.png
-```
-
+![Data Quality Analysis](outputs/data_quality.png)
 ---
 
 # 13. Formula Analysis
@@ -483,11 +453,7 @@ The purpose of the formula layer is to demonstrate that Excel can function as a 
 
 A visual example is included in:
 
-```text
-outputs/
-└── formula_analysis.png
-```
-
+![Formula Analysis](outputs/formula_analysis.png)
 ---
 
 # 14. PivotTable Analysis
@@ -517,10 +483,7 @@ Key analyses include:
 
 A visual summary of the PivotTable analysis is included in:
 
-```text
-outputs/
-└── pivot_analysis.png
-```
+![PivotTable Analysis](outputs/pivot_analysis.png)
 
 ---
 
@@ -537,10 +500,7 @@ The analysis focuses on:
 
 A visual representation is included in:
 
-```text
-outputs/
-└── business_insights.png
-```
+![Business Insights](outputs/business_insights.png)
 
 ---
 
@@ -710,10 +670,7 @@ A summary of:
 
 A screenshot of the final dashboard is included in:
 
-```text
-outputs/
-└── dashboard.png
-```
+![Taj Bites Executive Dashboard](outputs/dashboard.png)
 
 ---
 

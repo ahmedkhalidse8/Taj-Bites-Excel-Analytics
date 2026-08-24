@@ -1,618 +1,1277 @@
-# Taj Bites — Python Business Analytics
+# Taj Bites — Restaurant Business Performance Analytics
 
-**Python Analytics Project | Pandas | NumPy | Matplotlib | OpenPyXL | Data Validation | Exploratory Data Analysis**
+**Excel Flagship Project | Power Query | Excel Formulas | PivotTables | PivotCharts | Business Intelligence**
 
-> A Python-based business analytics project built from real operational data from Taj Bites, a restaurant business without a conventional POS-based analytics system.
+> An Excel-based business analytics system built from real operational data for a restaurant that did not have a conventional POS-based analytics system.
 
-## Project Overview
+---
 
-This project analyzes daily sales, profitability, product-category performance, and business trends for Taj Bites, a food-service business.
+# 1. Project Overview
 
-The analysis covers **381 daily records** from **December 2022 through December 2023**.
+**Taj Bites — Restaurant Business Performance Analytics** is an Excel flagship analytics project built using real daily operational records from a restaurant.
 
-This repository represents the **Python-based analytics implementation** of the Taj Bites project. The focus is on programmatic workbook auditing, data extraction, cleaning, validation, exploratory data analysis, data-quality investigation, and business performance analysis.
+The project began with an existing operational tracking system consisting of individual daily Excel workbooks. The original system was designed primarily for day-to-day restaurant operations, including inventory measurement, product costs, sales, expenses, and profitability.
 
-The project follows a complete Python analytics workflow:
+The source directory contains **387 Excel workbooks**, while the final analytical dataset represents **381 operating days** covering:
+
+**December 2022 – December 2023**
+
+The purpose of rebuilding the project was to transform the original operational system into a professional **Excel-based business analytics solution**, while preserving the original business logic and demonstrating the full range of Excel capabilities relevant to data analytics.
+
+The project deliberately positions:
+
+* **Excel as the primary analytics platform**
+* **Power Query as the data ingestion and transformation pipeline**
+* **Formulas as the business-logic and analytical layer**
+* **PivotTables and PivotCharts as the aggregation and visualization layer**
+* **The dashboard as the executive reporting layer**
+* **Data quality and validation as an explicit part of the workflow**
+
+The analytical workflow is:
 
 ```text
-Raw Excel Workbooks
-        ↓
-Python Workbook Audit
-        ↓
-Data Extraction
-        ↓
-Data Cleaning
-        ↓
-Data Validation
-        ↓
-Data-Quality Investigation
-        ↓
-Exploratory Data Analysis
-        ↓
-Business Performance Analysis
-        ↓
-Analytical Outputs
-        ↓
-Excel Dashboard
+387 Daily Excel Workbooks
+          ↓
+      Power Query
+          ↓
+Data Cleaning & Transformation
+          ↓
+    Historical Dataset
+          ↓
+   Formula Analysis
+          ↓
+      PivotTables
+          ↓
+    Business Insights
+          ↓
+   Executive Dashboard
 ```
 
-The project demonstrates how Python can be used to transform fragmented operational Excel files into a structured analytical dataset and business reporting workflow.
+The final solution allows management to understand:
 
----
-
-# Business Objectives
-
-The analysis was designed to answer the following questions:
-
-* How much revenue and net profit did the business generate?
-* Which months delivered the strongest and weakest performance?
-* Which product categories generated the most sales?
-* Which days of the week performed best?
-* How consistently was the business profitable?
-* Were there any data-quality issues that could affect business conclusions?
-
----
-
-# Key Results
-
-* **Total Sales:** Rs. 4,772,545
-* **Total Gross Profit:** Rs. 1,170,606
-* **Total Net Profit:** Rs. 602,639
-* **Gross Profit Margin:** 24.53%
-* **Net Profit Margin:** 12.63%
-* **Profitable Days:** 300 out of 381
-* **Profitable-Day Rate:** 78.74%
-* **Best Sales Month:** August 2023, with Rs. 507,125 in sales
-* **Best Net Profit Month:** August 2023, with Rs. 99,336 in net profit
-* **Highest-Sales Product Category:** Main Food
-* **Highest Average-Sales Day:** Friday
-
----
-
-# Key Business Insights
-
-1. Taj Bites generated Rs. 4.77 million in sales and Rs. 602,639 in net profit during the analysis period.
-2. The business was profitable on approximately 79% of recorded days, although 81 days generated net losses.
-3. August 2023 was the strongest month for both sales and net profit.
-4. Friday generated the highest average daily sales, while Tuesday generated the lowest average daily sales.
-5. Net profit margin declined significantly toward the end of 2023, reaching 2.86% in December.
-6. Main Food was the largest revenue-generating category, while Fries delivered a stronger reported profit margin.
-7. The reported Additional Food profit values were identified as unreliable and excluded from category-profit comparisons.
-
----
-
-# Tools and Technologies
-
-### Python
-
-Primary programming language used for the analytical workflow.
-
-Used for:
-
-* Workbook auditing
-* Data extraction
-* Data cleaning
-* Data validation
-* Exploratory data analysis
-* Business analysis
-* Automated quality checks
-* Analytical output generation
-
-### Pandas
-
-Used for:
-
-* Data manipulation
-* Data cleaning
-* Aggregation
-* Dataset transformation
-* Business-performance analysis
-
-### NumPy
-
-Used for numerical calculations and analytical operations.
-
-### Matplotlib
-
-Used to generate analytical visualizations covering:
-
-* Monthly sales
-* Monthly net profit
+* Overall business profitability
+* Total sales
+* Gross profit
+* Net profit
 * Profit margins
-* Product-category performance
+* Monthly profitability
 * Weekday performance
-* Daily trends
-
-### OpenPyXL
-
-Used for programmatic interaction with the source Excel workbooks.
-
-### Microsoft Excel
-
-Used as:
-
-* The original operational data format
-* The final dashboard/reporting environment
-
-### Excel PivotTables and Charts
-
-Used in the resulting business dashboard for management-oriented reporting.
+* Profitable vs. loss-making days
+* Business performance patterns
+* Areas requiring further investigation
 
 ---
 
-# Project Structure
+# 2. Project Background
+
+The restaurant originally operated using manually maintained daily Excel workbooks.
+
+Each day's operations were recorded in a separate workbook containing information related to:
+
+* Product costs
+* Product sales
+* Product-level profit
+* Raw material consumption
+* Packaging/material usage
+* Employee costs
+* Rent
+* Bills
+* Daily operating costs
+* Gross profit
+* Net profit
+
+The original workbook was therefore more than a simple sales spreadsheet. It functioned as a basic operational accounting and inventory-tracking system.
+
+The original operational system is documented separately in:
 
 ```text
-Taj-Bites-Python-Analytics/
+documentation/
+└── Original_System_Documentation.md
+```
+
+That document explains the original workflow, inventory measurement process, product costing, sales calculations, fixed costs, gross profit, and net profit calculations.
+
+---
+
+# 3. Business Problem
+
+The restaurant's historical operational data existed across hundreds of individual Excel workbooks.
+
+This created several analytical challenges.
+
+### Original challenges
+
+* Data was distributed across individual daily files.
+* The files followed an operational rather than analytical structure.
+* Historical analysis required combining information from many workbooks.
+* Manual consolidation would be time-consuming and error-prone.
+* Business performance was difficult to evaluate across long periods.
+* Profitability patterns were not immediately visible.
+* There was no centralized executive-level analytical dashboard.
+
+The project therefore focused on answering a fundamental business question:
+
+> **How can historical restaurant operations be transformed into a reliable Excel-based business intelligence system that allows management to understand profitability and operating performance?**
+
+---
+
+# 4. Project Objectives
+
+The project was designed to demonstrate practical Excel analytics skills while solving a genuine business problem.
+
+### Primary objectives
+
+1. Consolidate historical operational data using Power Query.
+2. Clean and standardize the resulting analytical dataset.
+3. Establish a structured Excel-based analytical workflow.
+4. Apply Excel formulas to support business analysis.
+5. Demonstrate conditional business logic.
+6. Create PivotTables for multidimensional analysis.
+7. Create PivotCharts and management-level visualizations.
+8. Analyze profitability across time and operating days.
+9. Identify important business trends and performance patterns.
+10. Build an executive-level dashboard.
+11. Document data-quality issues and validation procedures.
+12. Produce a portfolio-ready Excel analytics project.
+
+---
+
+# 5. Dataset
+
+## Source Workbooks
+
+The source directory contains **387 `.xlsx` workbooks**.
+
+The workbooks are organized by month:
+
+```text
+raw-data/
+
+├── Dec 2022/
+├── Jan 2023/
+├── Feb 2023/
+├── ...
+├── Dec 2023/
+└── ...
+```
+
+Each workbook represents an individual daily operational record.
+
+Example:
+
+```text
+raw-data/
+└── Apr 2023/
+    ├── 01 Apr 2023.xlsx
+    ├── 02 Apr 2023.xlsx
+    ├── 03 Apr 2023.xlsx
+    └── ...
+```
+
+## Analytical Coverage
+
+The final analytical dataset represents:
+
+* **Reporting period:** December 2022 – December 2023
+* **Operating days:** 381
+* **Source workbooks:** 387
+
+The difference between source workbook count and operating-day count reflects the underlying source-file structure and data-quality/reconciliation process.
+
+---
+
+# 6. Data Architecture
+
+The original data was organized around individual daily operational workbooks.
+
+The project transformed this operational structure into an analytical workflow.
+
+## Source Layer
+
+```text
+raw-data/
+
 │
-├── analysis/
-│   ├── 01_audit_workbooks.py
-│   ├── 02_inspect_workbook.py
-│   ├── 03_check_calculated_values.py
-│   ├── 04_extract_daily_summary.py
-│   ├── 04_validate_daily_summary.py
-│   ├── 05_validate_cleaned_data.py
-│   ├── 06_remove_duplicate_dates.py
-│   ├── 07_exploratory_data_analysis.py
-│   ├── 08_investigate_category_profit.py
-│   └── 09_final_business_analysis.py
+├── Dec 2022/
+│   ├── 02 Dec 2022.xlsx
+│   ├── 03 Dec 2022.xlsx
+│   └── ...
 │
-├── audit/
-│   └── workbook_audit.csv
+├── Jan 2023/
+│   ├── ...
 │
-├── excel_dashboard/
-│   └── Taj_Bites_Business_Dashboard.xlsx
-│
-├── excel_pipeline/
-│   ├── Taj_Bites_Historical_Data.xlsx
-│   └── Taj_Bites_Historical_Data_Repaired.xlsx
-│
-├── outputs/
-│   ├── business_insights.txt
-│   │
-│   ├── charts/
-│   │   ├── 01_monthly_sales.png
-│   │   ├── 02_monthly_net_profit.png
-│   │   ├── 03_monthly_profit_margin.png
-│   │   ├── 04_category_sales.png
-│   │   ├── 05_category_profit.png
-│   │   ├── 06_day_of_week_sales.png
-│   │   ├── 07_day_of_week_profit.png
-│   │   ├── 08_daily_sales_trend.png
-│   │   └── 09_daily_net_profit_trend.png
-│   │
-│   └── tables/
-│       ├── category_performance.csv
-│       ├── day_of_week_performance.csv
-│       ├── kpi_summary.csv
-│       ├── monthly_performance.csv
-│       └── reliable_category_profit.csv
-│
-├── processed_data/
-│   ├── taj_bites_daily_summary_clean.csv
-│   └── taj_bites_monthly_summary.csv
-│
-└── README.md
+└── ...
+```
+
+## Analytical Workflow
+
+```text
+Raw Daily Workbooks
+        │
+        ▼
+   Power Query
+        │
+        ▼
+Data Cleaning / Transformation
+        │
+        ▼
+ Historical Dataset
+        │
+        ├──────────────► Data Quality
+        │
+        ├──────────────► Formula Analysis
+        │
+        └──────────────► PivotTables
+                              │
+                              ▼
+                       Business Insights
+                              │
+                              ▼
+                      Executive Dashboard
 ```
 
 ---
 
-# Data Cleaning and Validation
+# 7. Historical Data Pipeline — Power Query
 
-The raw source files were audited and consolidated into a daily business-performance dataset.
+Power Query is the primary data ingestion and transformation layer of the project.
 
-The Python validation process checked:
+Instead of manually opening hundreds of daily workbooks, the project uses a folder-based Power Query process.
 
-* Required columns
-* Missing values
+## Pipeline Architecture
+
+```text
+387 Daily Excel Workbooks
+          ↓
+      Power Query
+          ↓
+     Read Workbook
+          ↓
+     Access Sheet1
+          ↓
+     Extract Required Fields
+          ↓
+    Apply Business Logic
+          ↓
+     Sort by Date
+          ↓
+    Historical Dataset
+```
+
+The Power Query process performs several important tasks.
+
+### Folder-based ingestion
+
+Power Query reads the source files directly from the `raw-data` directory.
+
+### Workbook extraction
+
+Each workbook is opened programmatically through Power Query and the required `Sheet1` data is extracted.
+
+### Date extraction
+
+The operating date is derived from the workbook filename.
+
+### KPI extraction
+
+Required historical measures are extracted from the fixed workbook structure, including:
+
+* Fries cost
+* Fries sales
+* Fries profit
+* Zinger cost
+* Zinger sales
+* Zinger profit
+* Loaded food cost
+* Loaded food sales
+* Loaded food profit
+* Drinks cost
+* Drinks sales
+* Drinks profit
+* Daily operational cost
+* Total daily sales
+* Gross profit
+* Net profit
+
+### Historical business logic
+
+The source workbook structure changed during the operating period.
+
+The Power Query transformation therefore includes date-based logic to correctly extract values before and after the structural change on:
+
+**17 August 2023**
+
+This is important because the analytical dataset is not simply a raw concatenation of identical tables. The transformation preserves the underlying business logic of the original operational system.
+
+### Refreshability
+
+The main advantage of the Power Query approach is that the historical dataset can be refreshed from the source folder rather than manually rebuilding the dataset from hundreds of workbooks.
+
+---
+
+# 8. Power Query Evidence
+
+Screenshots documenting the Power Query implementation are included in:
+
+```text
+outputs/
+
+├── power_query.png
+└── Power Query Editor with Applied Steps.png
+```
+
+These screenshots provide visual evidence of:
+
+* The Power Query workflow
+* Source connection
+* Transformation steps
+* Applied steps
+* Historical data extraction
+
+---
+
+# 9. Excel Workbook Architecture
+
+The final Excel workbook is organized into dedicated analytical layers.
+
+The workbook is stored in:
+
+```text
+excel_dashboard/
+└── Taj_Bites_Business_Analytics.xlsx
+```
+
+The workbook contains dedicated sections for:
+
+* Historical / Power Query Data
+* Data Dictionary
+* Data Quality
+* Data Analysis
+* Formula Analysis
+* PivotTables
+* Business Insights
+* Executive Dashboard
+
+Each sheet serves a specific analytical purpose rather than duplicating the same analysis.
+
+---
+
+# 10. Historical Data / Power Query Sheet
+
+The Historical Data sheet contains the analytical dataset loaded through Power Query.
+
+This sheet acts as the primary data layer for downstream Excel analysis.
+
+Its purpose is to provide:
+
+* One structured historical dataset
+* Consistent field names
+* Standardized dates
+* Extracted financial metrics
+* A refreshable connection to the source workbooks
+
+The sheet separates the **data preparation layer** from the **analysis and presentation layers**.
+
+---
+
+# 11. Data Dictionary
+
+The Data Dictionary documents the analytical fields used within the project.
+
+The purpose is to make the dataset understandable and maintainable.
+
+A data dictionary is particularly important when transforming an operational workbook into an analytical model because field names and business definitions need to be explicit.
+
+The documentation explains the meaning and analytical purpose of the main fields used in the historical dataset.
+
+---
+
+# 12. Data Quality
+
+Data quality was treated as an explicit component of the project.
+
+The project does not assume that operational data is automatically perfect.
+
+Instead, potential issues were investigated through:
+
+* Record-level checks
+* Duplicate checks
+* Missing-value checks
+* Calculation checks
+* Anomaly investigation
+* Source-to-output comparisons
+* Sampling-based QA
+
+Examples of issues investigated during the project included:
+
 * Duplicate dates
-* Negative sales values
-* Total-sales calculations
-* Gross-profit calculations
-* Net-profit calculations
-* Negative-profit records
-* Zero-sales records
+* Duplicate or misplaced files
+* Inconsistent records
+* Calculation anomalies
+* Product-level calculation discrepancies
+* Unusual profitability values
 
-Six duplicate dates were identified and removed.
+The purpose of this section is not simply to report that the data is "clean."
 
-The final cleaned dataset contains **381 records**, with no remaining duplicate dates and no missing values.
+It demonstrates an analytical approach to:
 
-Small Rs. 0.01 differences in some profit calculations were treated as normal rounding differences.
+> **Data validation and quality assurance**
 
-The validation process was designed to establish confidence in the analytical dataset before downstream business analysis was performed.
+A visual summary of the data-quality analysis is included in:
 
----
-
-# Data-Quality Finding
-
-The **Additional Food** category showed reported profit values substantially greater than sales on multiple dates.
-
-Because these values produced unrealistic profit margins, Additional Food profit was excluded from category-profit comparisons.
-
-The source data was preserved, and the issue was documented rather than silently changing the original values.
-
-This demonstrates an important analytical principle:
-
-> Data-quality problems should be investigated and documented before they are used to support business conclusions.
+```text
+outputs/
+└── data_quality.png
+```
 
 ---
 
-# Python Analysis Workflow
+# 13. Formula Analysis
 
-The analysis scripts were developed as separate stages so that the workflow could be inspected and validated progressively.
+The Formula Analysis sheet demonstrates Excel's analytical and business-logic capabilities.
 
-### 01 — Workbook Audit
+The project deliberately uses formulas to solve practical business questions rather than adding formulas simply to demonstrate Excel functions.
 
-`01_audit_workbooks.py`
+## XLOOKUP
 
-Audits the collection of source Excel workbooks and establishes an initial understanding of the available files and workbook structure.
+Used where structured reference tables require related information to be retrieved dynamically.
 
-### 02 — Workbook Inspection
+## SUMIFS
 
-`02_inspect_workbook.py`
+Used for conditional aggregation such as:
 
-Inspects workbook contents and structure to identify the relevant worksheets, columns, rows, and operational data layout.
+* Sales by period
+* Profit by category
+* Sales by weekday
+* Category-level totals
 
-### 03 — Calculated-Value Validation
+## AVERAGEIFS
 
-`03_check_calculated_values.py`
+Used for conditional averages such as:
 
-Checks calculated values within the source workbooks and investigates potential calculation inconsistencies.
-
-### 04 — Daily Summary Extraction
-
-`04_extract_daily_summary.py`
-
-Extracts relevant daily business metrics from the operational workbooks into a structured analytical dataset.
-
-### 04 — Daily Summary Validation
-
-`04_validate_daily_summary.py`
-
-Validates the extracted daily summary against the underlying source records.
-
-### 05 — Cleaned Data Validation
-
-`05_validate_cleaned_data.py`
-
-Performs additional checks against the cleaned analytical dataset.
-
-### 06 — Duplicate Date Removal
-
-`06_remove_duplicate_dates.py`
-
-Identifies and removes duplicate-date records from the analytical dataset.
-
-### 07 — Exploratory Data Analysis
-
-`07_exploratory_data_analysis.py`
-
-Performs exploratory analysis of:
-
-* Sales
-* Profitability
-* Monthly performance
-* Product categories
+* Average daily sales
+* Average profit
 * Weekday performance
-* Daily trends
+* Period-level performance
 
-### 08 — Category Profit Investigation
+## IF / IFS
 
-`08_investigate_category_profit.py`
+Used for business classification logic, including profitability classification.
 
-Investigates unusual category-level profit values and identifies the Additional Food data-quality issue.
+For example:
 
-### 09 — Final Business Analysis
+```text
+Net Profit > 0
+      ↓
+  Profitable
 
-`09_final_business_analysis.py`
+Net Profit <= 0
+      ↓
+    Loss
+```
 
-Produces the final business-performance analysis and analytical output tables.
+## Variance / Comparison Logic
+
+The analytical framework also supports comparisons between actual performance and reference values such as:
+
+* Average sales
+* Average profit
+* Expected performance
+* Reference-period performance
+
+The purpose of the formula layer is to demonstrate that Excel can function as a business logic and analytical tool, not merely as a data-entry application.
+
+A visual example is included in:
+
+```text
+outputs/
+└── formula_analysis.png
+```
 
 ---
 
-# Dashboard
+# 14. PivotTable Analysis
 
-The resulting Excel dashboard provides a management-oriented view of the business performance.
+PivotTables provide the primary aggregation layer for the business analysis.
 
-The dashboard includes:
+The PivotTables summarize the historical dataset across multiple dimensions.
+
+Key analyses include:
+
+## Monthly Profitability
+
+| Month     |   Sales | Gross Profit | Net Profit | Net Margin |
+| --------- | ------: | -----------: | ---------: | ---------: |
+| January   | 368,140 |   123,077.29 |  46,377.29 |     12.60% |
+| February  | 272,495 |    89,891.16 |  29,691.16 |     10.90% |
+| March     | 301,720 |    93,414.00 |  22,680.67 |      7.52% |
+| April     | 287,200 |    96,993.56 |  27,493.56 |      9.57% |
+| May       | 409,160 |   126,438.96 |  54,622.29 |     13.35% |
+| June      | 369,535 |   100,944.38 |  38,394.38 |     10.39% |
+| July      | 370,380 |   121,542.18 |  65,942.18 |     17.80% |
+| August    | 552,920 |   172,557.64 | 103,240.97 |     18.67% |
+| September | 540,310 |   162,105.18 | 101,905.18 |     18.86% |
+| October   | 495,990 |   129,914.76 |  63,264.76 |     12.76% |
+| November  | 398,215 |    90,298.08 |  25,798.08 |      6.48% |
+| December  | 357,470 |    72,239.81 |   5,589.81 |      1.56% |
+
+A visual summary of the PivotTable analysis is included in:
+
+```text
+outputs/
+└── pivot_analysis.png
+```
+
+---
+
+# 15. Business Insights
+
+The Business Insights sheet converts analytical outputs into management-level conclusions.
+
+The analysis focuses on:
+
+1. Executive profitability
+2. Monthly profitability
+3. Weekday profitability
+4. Profitability status
+
+A visual representation is included in:
+
+```text
+outputs/
+└── business_insights.png
+```
+
+---
+
+# 16. Executive KPIs
+
+Across the complete 381 operating days, the restaurant generated:
+
+| KPI                  |           Result |
+| -------------------- | ---------------: |
+| Total Operating Days |              381 |
+| Total Sales          |    PKR 5,137,235 |
+| Total Gross Profit   | PKR 1,494,351.27 |
+| Total Net Profit     |   PKR 636,134.60 |
+| Gross Profit Margin  |           29.09% |
+| Net Profit Margin    |           12.38% |
+| Profitable Days      |              300 |
+| Loss Days            |               81 |
+| Profitability Rate   |           78.74% |
+
+These KPIs form the executive summary of the project.
+
+---
+
+# 17. Monthly Profitability Analysis
+
+Monthly analysis reveals significant variation in profitability throughout 2023.
+
+## Strongest Months
+
+### August
+
+* Sales: **PKR 552,920**
+* Gross Profit: **PKR 172,557.64**
+* Net Profit: **PKR 103,240.97**
+* Net Margin: **18.67%**
+
+### September
+
+* Sales: **PKR 540,310**
+* Gross Profit: **PKR 162,105.18**
+* Net Profit: **PKR 101,905.18**
+* Net Margin: **18.86%**
+
+August and September were therefore the strongest profitability period in the 2023 operating data.
+
+---
+
+# 18. December Profitability
+
+December 2023 requires particular attention.
+
+The restaurant generated:
+
+* Sales: **PKR 357,470**
+* Gross Profit: **PKR 72,239.81**
+* Net Profit: **PKR 5,589.81**
+* Net Margin: **1.56%**
+
+The key issue is that relatively substantial sales did not translate into comparable net profitability.
+
+This makes December an important period for further operational investigation.
+
+---
+
+# 19. Weekday Profitability
+
+The analysis also examined average daily performance by weekday.
+
+| Day       |     Avg Sales | Avg Gross Profit | Avg Net Profit |
+| --------- | ------------: | ---------------: | -------------: |
+| Sunday    | PKR 14,049.07 |     PKR 4,007.41 |   PKR 1,764.51 |
+| Monday    | PKR 13,009.45 |     PKR 3,564.78 |   PKR 1,320.54 |
+| Tuesday   | PKR 12,551.09 |     PKR 3,393.54 |   PKR 1,127.48 |
+| Wednesday | PKR 13,148.18 |     PKR 4,017.04 |   PKR 1,750.98 |
+| Thursday  | PKR 12,887.50 |     PKR 3,743.54 |   PKR 1,481.50 |
+| Friday    | PKR 14,479.73 |     PKR 4,479.76 |   PKR 2,235.22 |
+| Saturday  | PKR 14,288.58 |     PKR 4,259.77 |   PKR 2,018.26 |
+
+## Strongest Weekday
+
+**Friday**
+
+Friday had:
+
+* Highest average sales: **PKR 14,479.73**
+* Highest average gross profit: **PKR 4,479.76**
+* Highest average net profit: **PKR 2,235.22**
+
+## Weakest Weekday
+
+**Tuesday**
+
+Tuesday had:
+
+* Lowest average sales: **PKR 12,551.09**
+* Lowest average gross profit: **PKR 3,393.54**
+* Lowest average net profit: **PKR 1,127.48**
+
+---
+
+# 20. Profitability Status
+
+The business was profitable on most operating days.
+
+| Profit Status |    Days |             Sales |         Net Profit |
+| ------------- | ------: | ----------------: | -----------------: |
+| Profitable    |     300 |     PKR 4,440,010 |     PKR 723,447.47 |
+| Loss          |      81 |       PKR 697,225 |     -PKR 87,312.87 |
+| **Total**     | **381** | **PKR 5,137,235** | **PKR 636,134.60** |
+
+The business generated positive net profit on:
+
+**300 of 381 operating days**
+
+which represents a:
+
+**78.74% profitability rate.**
+
+The 81 loss-making days collectively generated:
+
+**PKR 87,312.87 in negative net profit.**
+
+This provides a more meaningful view of consistency than annual profit alone.
+
+---
+
+# 21. Executive Dashboard
+
+The final Executive Dashboard is designed as the primary visual interface for management.
+
+The dashboard contains:
+
+## Executive KPI Cards
 
 * Total Sales
-* Total Gross Profit
-* Total Net Profit
-* Net Profit Margin
+* Gross Profit
+* Net Profit
+* Net Margin
 * Profitable Days
-* Loss-Making Days
-* Monthly Sales Trend
-* Monthly Net Profit Trend
-* Sales by Product Category
-* Key Business Insights
+* Profitability Rate
 
-The dashboard represents the reporting layer built from the validated analytical dataset.
+## Monthly Net Profit — 2023
 
----
+A column chart displaying monthly net profit from January through December 2023.
 
-# Analytical Outputs
+The visualization highlights:
 
-The project generates structured outputs for downstream reporting and interpretation.
+* Strong performance in August
+* Strong performance in September
+* Significant deterioration in December
 
-### KPI Summary
+## Average Net Profit by Weekday
 
-`kpi_summary.csv`
+A weekday performance visualization showing average net profit across Sunday through Saturday.
 
-Contains the primary business KPIs for the analysis period.
+This makes Friday's stronger performance and Tuesday's weaker performance immediately visible.
 
-### Monthly Performance
+## Profitability Status
 
-`monthly_performance.csv`
+A summary of:
 
-Contains monthly sales and profitability metrics.
+* Profitable days
+* Loss days
+* Sales generated on profitable days
+* Sales generated on loss days
+* Net profit contribution
 
-### Category Performance
-
-`category_performance.csv`
-
-Contains product-category performance metrics.
-
-### Reliable Category Profit
-
-`reliable_category_profit.csv`
-
-Contains category-profit analysis after excluding the unreliable Additional Food profit values.
-
-### Day-of-Week Performance
-
-`day_of_week_performance.csv`
-
-Contains weekday-level performance metrics.
-
-### Business Insights
-
-`business_insights.txt`
-
-Contains the final management-level findings generated from the analysis.
-
----
-
-# How to Run
-
-1. Clone the repository.
-
-2. Install the required Python packages:
-
-```bash
-pip install pandas numpy matplotlib openpyxl
-```
-
-3. Ensure the source Excel workbooks are available in the expected raw-data location.
-
-4. Run the analysis scripts in numerical order.
-
-5. Review the generated analytical outputs.
-
-6. Open the Excel dashboard:
+A screenshot of the final dashboard is included in:
 
 ```text
-excel_dashboard/Taj_Bites_Business_Dashboard.xlsx
+outputs/
+└── dashboard.png
 ```
 
 ---
 
-# What This Project Demonstrates
+# 22. Key Business Findings
 
-This project demonstrates practical Python data-analytics capabilities across the complete analytical lifecycle.
+## Finding 1 — Overall profitability was positive
 
-### Data Engineering / Preparation
+The restaurant generated approximately:
 
-* Programmatic Excel workbook inspection
-* Workbook auditing
-* Data extraction
-* Data transformation
-* Data cleaning
-* Dataset consolidation
+**PKR 636K net profit**
 
-### Data Quality
+from:
 
-* Missing-value detection
-* Duplicate detection
-* Calculation validation
-* Source-to-output validation
-* Anomaly investigation
-* Business-rule validation
-* Data-quality documentation
+**PKR 5.14M in sales**
 
-### Exploratory Data Analysis
+resulting in a:
 
-* Monthly trend analysis
-* Daily trend analysis
-* Product-category analysis
-* Weekday analysis
-* Profitability analysis
-* Margin analysis
-
-### Business Analytics
-
-* KPI development
-* Revenue analysis
-* Gross-profit analysis
-* Net-profit analysis
-* Profitability consistency analysis
-* Business performance segmentation
-* Management-level insight generation
-
-### Visualization
-
-* Monthly sales visualization
-* Monthly net-profit visualization
-* Profit-margin visualization
-* Category-sales visualization
-* Category-profit visualization
-* Weekday performance visualization
-* Daily sales trends
-* Daily net-profit trends
+**12.38% net profit margin.**
 
 ---
 
-# Business Questions Answered
+## Finding 2 — Most operating days were profitable
 
-The completed analysis can answer questions such as:
+The restaurant was profitable on:
 
-### Financial Performance
+**300 of 381 operating days**
+
+or:
+
+**78.74% of operating days.**
+
+However, 81 days generated losses, showing that profitability consistency can still be improved.
+
+---
+
+## Finding 3 — August and September were the strongest months
+
+August generated:
+
+**PKR 103,240.97 net profit**
+
+while September generated:
+
+**PKR 101,905.18 net profit.**
+
+These were the two strongest monthly net-profit results in 2023.
+
+---
+
+## Finding 4 — December profitability deteriorated significantly
+
+December generated:
+
+**PKR 357,470 in sales**
+
+but only:
+
+**PKR 5,589.81 in net profit**
+
+for a:
+
+**1.56% net margin.**
+
+This indicates that sales volume alone did not guarantee strong profitability.
+
+---
+
+## Finding 5 — Friday was the strongest weekday
+
+Friday produced the highest average:
+
+* Sales
+* Gross profit
+* Net profit
+
+with average net profit of approximately:
+
+**PKR 2,235 per operating day.**
+
+---
+
+## Finding 6 — Tuesday was the weakest weekday
+
+Tuesday produced the lowest average:
+
+* Sales
+* Gross profit
+* Net profit
+
+with average net profit of approximately:
+
+**PKR 1,127 per operating day.**
+
+---
+
+# 23. Data Quality & Validation
+
+Data quality was treated as an explicit component of the project rather than assuming that operational data was automatically reliable.
+
+The validation process included manual sampling and cross-checking of analytical outputs against source records.
+
+The project investigated issues such as:
+
+* Duplicate dates
+* Duplicate or misplaced source files
+* Missing or inconsistent records
+* Calculation mismatches
+* Unusual product-level results
+* Profitability anomalies
+
+The project used a **sampling-based QA approach** to validate the Power Query and analytical results against selected source records.
+
+This helped establish confidence that the transformed dataset and downstream analyses were consistent with the underlying operational records.
+
+---
+
+# 24. Inventory Analysis — Final Scope Decision
+
+Inventory analysis was considered during the original project roadmap.
+
+However, it was intentionally **not included as a separate final analytical module**.
+
+The reason is that the final project is focused on building a coherent **restaurant business performance analytics system**, with profitability and business performance as the primary analytical themes.
+
+Rather than adding an incomplete inventory module simply to increase the number of features, the final project prioritizes:
+
+* Data preparation
+* Data quality
+* Formula analysis
+* Profitability analysis
+* PivotTables
+* Business insights
+* Executive reporting
+
+The original inventory and consumption methodology remains documented in:
+
+```text
+documentation/
+└── Original_System_Documentation.md
+```
+
+---
+
+# 25. Python Validation — Final Scope Decision
+
+Python was considered as a separate validation stage during the broader project roadmap.
+
+However, the final version of this project intentionally does not depend on Python for its analytical workflow.
+
+The historical Excel data was subjected to manual sampling-based QA, while the primary objective of this project is to demonstrate **Excel business analytics capability**.
+
+Therefore:
+
+> **Excel is intentionally the star of this project.**
+
+Python may be used as a supporting analytical or validation tool in other projects, but it is not required for the final Taj Bites Excel workflow.
+
+---
+
+# 26. Tools & Technologies
+
+## Microsoft Excel
+
+The primary analytical platform.
+
+Used for:
+
+* Data analysis
+* Formula calculations
+* PivotTables
+* PivotCharts
+* Dashboard development
+* Business reporting
+* KPI development
+* Business insights
+
+## Power Query
+
+Used as the data ingestion and transformation layer.
+
+Key capabilities demonstrated:
+
+* Folder-based data ingestion
+* Combining multiple workbooks
+* Workbook-level extraction
+* Data transformation
+* Column standardization
+* Data-type handling
+* Business-rule logic
+* Data cleaning
+* Refreshable analytical pipeline
+
+## Excel Formulas
+
+Key analytical functions include:
+
+* XLOOKUP
+* SUMIFS
+* AVERAGEIFS
+* IF
+* IFS
+* Conditional logic
+* Calculated metrics
+* Margin calculations
+* Variance/comparison calculations
+
+## PivotTables
+
+Used for:
+
+* Monthly analysis
+* Weekday analysis
+* Profitability analysis
+* Aggregation
+* Business performance summaries
+
+## PivotCharts
+
+Used to visualize:
+
+* Monthly net profit
+* Weekday net profit
+* Business performance patterns
+
+---
+
+# 27. Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+## Data Preparation
+
+* Power Query
+* Folder-based ingestion
+* Combining workbooks
+* Data transformation
+* Data cleaning
+* Data standardization
+* Data validation
+
+## Excel Analytics
+
+* XLOOKUP
+* SUMIFS
+* AVERAGEIFS
+* IF / IFS
+* Conditional logic
+* Calculated metrics
+* Margin calculations
+* Variance analysis
+
+## Business Intelligence
+
+* KPI development
+* Profitability analysis
+* Time-series analysis
+* Weekday performance analysis
+* Business performance segmentation
+* Executive reporting
+
+## Excel Visualization
+
+* PivotTables
+* PivotCharts
+* Dashboard design
+* KPI cards
+* Executive summaries
+* Business insights
+
+## Data Quality
+
+* Sampling-based QA
+* Source-to-output validation
+* Anomaly identification
+* Calculation checks
+* Duplicate detection
+
+---
+
+# 28. Repository Structure
+
+The current project repository is organized as:
+
+```text
+Taj-Bites-Analytic/
+│
+├── README.md
+│
+├── documentation/
+│   └── Original_System_Documentation.md
+│
+├── excel_dashboard/
+│   └── Taj_Bites_Business_Analytics.xlsx
+│
+├── outputs/
+│   ├── business_insights.png
+│   ├── dashboard.png
+│   ├── data_quality.png
+│   ├── formula_analysis.png
+│   ├── pivot_analysis.png
+│   ├── power_query.png
+│   └── Power Query Editor with Applied Steps.png
+│
+└── raw-data/
+    ├── Dec 2022/
+    ├── Jan 2023/
+    ├── ...
+    └── Dec 2023/
+```
+
+The `raw-data` directory contains the original daily operational workbooks.
+
+The `excel_dashboard` directory contains the final Excel analytical workbook.
+
+The `documentation` directory contains documentation of the original restaurant tracking system.
+
+The `outputs` directory contains visual evidence of the analytical work and final dashboard.
+
+---
+
+# 29. Analytical Flow
+
+The complete analytical process can be summarized as:
+
+```text
+                 SOURCE DATA
+
+                     │
+                     ▼
+
+           387 Daily Excel Workbooks
+
+                     │
+                     ▼
+
+                POWER QUERY
+
+                     │
+                     ▼
+
+           Cleaning & Transformation
+
+                     │
+                     ▼
+
+             Historical Dataset
+
+                     │
+          ┌──────────┼──────────┐
+          ▼          ▼          ▼
+    Data Quality  Formulas  Data Analysis
+          │          │          │
+          └──────────┼──────────┘
+                     ▼
+                PivotTables
+                     │
+                     ▼
+              Business Insights
+                     │
+                     ▼
+             Executive Dashboard
+```
+
+---
+
+# 30. Business Impact
+
+The project transforms a collection of operational Excel files into a structured business analytics solution.
+
+Instead of requiring management to inspect individual daily workbooks, the final system provides a centralized view of:
+
+* Revenue
+* Gross profitability
+* Net profitability
+* Margins
+* Operating-day performance
+* Monthly trends
+* Weekday performance
+* Profitability consistency
+
+This makes it possible to move from:
+
+> **Raw operational records**
+
+to:
+
+> **Structured business information**
+
+and finally to:
+
+> **Actionable business insights.**
+
+---
+
+# 31. Example Management Questions Answered
+
+The completed workbook can answer questions such as:
+
+## Financial Performance
 
 * How much did the restaurant sell?
 * How much gross profit was generated?
 * How much net profit was generated?
 * What was the overall net margin?
 
-### Monthly Performance
+## Time-Based Performance
 
-* Which month generated the most sales?
 * Which month generated the most net profit?
-* Which month performed worst?
-* How did profitability change throughout the year?
+* Which month performed the worst?
+* How did profitability change throughout 2023?
 
-### Product Performance
-
-* Which category generated the most sales?
-* Which categories generated stronger reported profit?
-* Were any category-level calculations unreliable?
-
-### Operating Performance
+## Operating Performance
 
 * How many days were profitable?
 * How many days generated losses?
 * What percentage of operating days were profitable?
 
-### Weekday Performance
+## Weekday Performance
 
 * Which weekday generated the highest average sales?
-* Which weekday generated the highest average profit?
+* Which weekday generated the highest average net profit?
 * Which weekday performed weakest?
 
-### Data Quality
+## Management Decision Support
 
-* Were there duplicate dates?
-* Were there missing records?
-* Were calculations internally consistent?
-* Were there suspicious profitability values?
-* Could any data-quality issue materially affect business conclusions?
+* Was the business consistently profitable?
+* Which periods require additional investigation?
+* Where should management investigate declining margins?
+* Which operating patterns appear associated with stronger profitability?
 
 ---
 
-# Main Business Story
+# 32. Main Business Story
 
-The most important story from the analysis is not simply that the restaurant generated **Rs. 602,639 in net profit**.
+The most important story from the analysis is not simply that the restaurant generated **PKR 636K in net profit**.
 
 The deeper story is:
 
-> Taj Bites generated Rs. 4.77 million in sales and Rs. 602,639 in net profit across 381 operating days, achieving profitability on 78.74% of recorded operating days. Performance varied throughout the year, with August 2023 producing the strongest sales and net-profit performance. Weekday analysis also revealed meaningful differences, with Friday producing the highest average daily sales while Tuesday produced the lowest. The analysis also identified a significant data-quality issue in reported Additional Food profit values, demonstrating the importance of validating operational data before using it for business decisions.
+> Taj Bites generated **PKR 5.14 million in sales and PKR 636K in net profit across 381 operating days**, achieving profitability on **78.74% of operating days**. Performance varied considerably throughout the year, with August and September producing the strongest profitability while December experienced a substantial decline in net margin. Weekday analysis also revealed meaningful differences, with Friday generating the strongest average net profit and Tuesday the weakest.
 
-This moves the project beyond simply producing charts and demonstrates a complete analytical investigation.
+This demonstrates how fragmented operational records can be transformed into a business performance narrative using Excel.
 
 ---
 
-# Project Outcome
+# 33. Why This Project Is Portfolio-Ready
 
-The project transformed a collection of fragmented daily operational Excel workbooks into a structured analytical dataset and business-performance reporting workflow.
+This project demonstrates more than the ability to create spreadsheets.
 
-The final process covers:
+It demonstrates a complete analytical workflow:
 
 ```text
-Operational Excel Files
-        ↓
-Python Workbook Audit
-        ↓
-Data Extraction
-        ↓
-Data Cleaning
-        ↓
-Data Validation
-        ↓
-Data-Quality Investigation
-        ↓
-Exploratory Data Analysis
-        ↓
-Business Performance Analysis
-        ↓
-Analytical Outputs
-        ↓
-Excel Dashboard
+Data Ingestion
+      ↓
+Data Transformation
+      ↓
+Data Quality
+      ↓
+Analytical Dataset
+      ↓
+Formula-Based Analysis
+      ↓
+PivotTable Analysis
+      ↓
+Business Interpretation
+      ↓
+Executive Visualization
 ```
 
-The resulting system provides a centralized view of:
+The project also uses **real operational business data**, rather than relying exclusively on a generic public dataset.
 
-* Revenue
-* Gross profitability
-* Net profitability
-* Profit margins
-* Product-category performance
-* Monthly trends
-* Weekday performance
-* Profitability consistency
-* Data-quality issues
+This provides an opportunity to demonstrate how analytical tools can be applied to a real business environment where data may be fragmented, inconsistent, and originally designed for operations rather than analytics.
 
 ---
 
-# Project Scope
+# 34. Portfolio Positioning
 
-This repository is intentionally focused on the **Python implementation** of the Taj Bites analytics work.
+This project should be positioned as:
 
-The project demonstrates how Python can be used to perform the audit, extraction, validation, exploratory analysis, and business analysis stages of a real operational-data problem.
+## Restaurant Business Performance Analytics
 
-The Excel dashboard is included as the reporting output of this analytical workflow.
+**Excel + Power Query**
 
-The project is therefore positioned primarily as a:
+Rather than:
 
-> **Python Data Analytics / Business Analytics Project**
+> "I made an Excel dashboard."
 
-rather than as an Excel-only dashboard project.
+A stronger description is:
+
+> **"I transformed 387 daily operational Excel workbooks representing 381 operating days into a refreshable Excel business analytics system using Power Query, formula-based analysis, PivotTables, PivotCharts, data-quality validation, and an executive profitability dashboard."**
+
+This emphasizes the complete analytical workflow rather than only the final visualization.
 
 ---
 
-# Portfolio Positioning
+# 35. Project Outcome
 
-This project should be viewed as a practical example of applying Python analytics to real operational business data.
+The final solution provides a structured Excel-based analytics framework for historical restaurant performance.
 
-Instead of starting with a clean public dataset, the project began with fragmented daily Excel workbooks that required:
+The completed system includes:
 
-* Workbook inspection
-* Automated auditing
-* Data extraction
-* Data cleaning
-* Validation
-* Duplicate detection
-* Data-quality investigation
-* Exploratory analysis
-* Business interpretation
+* Refreshable Power Query data ingestion
+* Structured historical analytical data
+* Data dictionary
+* Data-quality analysis
+* Formula analysis
+* PivotTable analysis
+* Profitability analysis
+* Business insights
+* Executive dashboard
+* Supporting documentation of the original operational system
 
-The project demonstrates the ability to work with imperfect operational data and turn it into structured information suitable for business analysis.
+The project demonstrates how Excel can function as a practical business intelligence platform when combined with disciplined data preparation, analytical modeling, validation, and business-focused interpretation.
+
+---
+
+# 36. Conclusion
+
+The Taj Bites project began with fragmented daily operational records and was rebuilt as a structured Excel business analytics solution.
+
+The final result demonstrates the journey from:
+
+**Operational Data → Analytical Dataset → Business Analysis → Executive Decision Support**
+
+The primary analytical conclusion is that the business was profitable overall, but profitability was not uniform across time or operating days.
+
+The strongest performance occurred during August and September, while December showed a significant deterioration in net profitability. Friday emerged as the strongest weekday, while Tuesday was the weakest.
+
+The project therefore demonstrates not only how to calculate business metrics, but also how to use Excel to identify, investigate, and communicate the operational patterns behind those metrics.
 
 ---
 
 # Project Classification
 
-**Project Type:** Python Business Analytics / Data Analytics
+**Project Type:** Business Analytics / Excel Analytics
 
 **Industry:** Restaurant / Food Service
 
-**Primary Tools:** Python, Pandas, NumPy, Matplotlib
+**Primary Tool:** Microsoft Excel
 
-**Supporting Tools:** OpenPyXL, Microsoft Excel
+**Data Pipeline:** Power Query
 
-**Analysis:** Data Audit + Cleaning + Validation + EDA + Business Analysis
+**Analysis:** Excel Formulas + PivotTables
 
-**Visualization:** Matplotlib + Excel Dashboard
+**Visualization:** PivotCharts + Executive Dashboard
 
 **Reporting Period:** December 2022 – December 2023
 
+**Source Workbooks:** 387
+
 **Operating Days:** 381
 
-**Total Sales:** Rs. 4,772,545
+**Total Sales:** PKR 5,137,235
 
-**Total Gross Profit:** Rs. 1,170,606
+**Total Gross Profit:** PKR 1,494,351.27
 
-**Total Net Profit:** Rs. 602,639
+**Total Net Profit:** PKR 636,134.60
 
-**Net Profit Margin:** 12.63%
+**Net Profit Margin:** 12.38%
 
 **Profitability Rate:** 78.74%
 
@@ -622,5 +1281,6 @@ The project demonstrates the ability to work with imperfect operational data and
 
 **Ahmed Khalid**
 
-Portfolio: https://ahmedkhalidse8.github.io
-GitHub: https://github.com/ahmedkhalidse8
+Data Analyst | Excel | SQL | Python | Power BI
+
+This project is part of my analytics portfolio and demonstrates practical application of Excel, Power Query, business analysis, data validation, and data visualization to real operational data.

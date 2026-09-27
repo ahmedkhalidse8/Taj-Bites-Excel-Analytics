@@ -164,18 +164,16 @@ The project transformed this operational structure into an analytical workflow.
 ## Source Layer
 
 ```text
-raw-data/
+The original operational data consisted of 387 daily Excel workbooks organized by month:
 
-│
+raw-data/
 ├── Dec 2022/
-│   ├── 02 Dec 2022.xlsx
-│   ├── 03 Dec 2022.xlsx
-│   └── ...
-│
 ├── Jan 2023/
-│   ├── ...
-│
-└── ...
+├── Feb 2023/
+├── ...
+└── Dec 2023/
+
+These source workbooks contain private business data and are **not included in the public GitHub repository**.
 ```
 
 ## Analytical Workflow
@@ -952,19 +950,16 @@ This project demonstrates practical experience with:
 
 # 28. Repository Structure
 
-The current project repository is organized as:
+The public repository is organized as:
 
 ```text
-Taj-Bites-Analytic/
+Taj-Bites-Excel-Analytics/
 │
 ├── README.md
-│
 ├── documentation/
 │   └── Original_System_Documentation.md
-│
 ├── excel_dashboard/
 │   └── Taj_Bites_Business_Analytics.xlsx
-│
 ├── outputs/
 │   ├── business_insights.png
 │   ├── dashboard.png
@@ -973,12 +968,7 @@ Taj-Bites-Analytic/
 │   ├── pivot_analysis.png
 │   ├── power_query.png
 │   └── Power Query Editor with Applied Steps.png
-│
-└── raw-data/
-    ├── Dec 2022/
-    ├── Jan 2023/
-    ├── ...
-    └── Dec 2023/
+└── .gitignore
 ```
 
 The `raw-data` directory contains the original daily operational workbooks.
